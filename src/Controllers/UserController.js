@@ -21,24 +21,25 @@ function validateMobile($mobile) {
         return true;
     }
 }
-
+status:true
+status:false
 
 const CreateUser= async (req,res)=>{
     try {
          let data=req.body
-  if(Object.keys(data).length==0) return res.status(400).send("Input Should not be Empty")
-if(!data.title) return res.status(400).send("title is mandatory")
-if(!data.phone) return res.status(400).send("phone is mandatory")
-if(!validateMobile(data.phone))  return res.status(400).send("phone is not valid")
-if(!data.name) return res.status(400).send("name is mandatory")
-if(!validateName(data.name)) return res.status(400).send("name is not valid")
-if(!data.email) return res.status(400).send("email is mandatory")
-if(!validator.isEmail(data.email)) return res.status(400).send("email is not valid")
-if(!data.password) return res.status(400).send("password is mandatory")
-if(validator.isStrongPassword(data.password))  return res.status(400).send("password is not valid")
+  if(Object.keys(data).length==0) return res.status(400).send({status:false,msg:"Input Should not be Empty"})
+if(!data.title) return res.status(400).send({status:false,msg:"title is mandatory"})
+if(!data.phone) return res.status(400).send({status:false,msg:"phone is mandatory"})
+if(!validateMobile(data.phone))  return res.status(400).send({status:false,msg:"phone is not valid"})
+if(!data.name) return res.status(400).send({status:false,msg:"name is mandatory"})
+if(!validateName(data.name)) return res.status(400).send({status:false,msg:"name is not valid"})
+if(!data.email) return res.status(400).send({status:false,msg:"email is mandatory"})
+if(!validator.isEmail(data.email)) return res.status(400).send({status:false,msg:"email is not valid"})
+if(!data.password) return res.status(400).send({status:false,msg:"password is mandatory"})
+if(validator.isStrongPassword(data.password))  return res.status(400).send({status:false,msg:"password is not valid"})
 
 let UniqueDetails=await UserModel.findOne({email:data.email,phone:data.phone})
-if(UniqueDetails) return res.status(400).send("Email & Phone must be Unique")
+if(UniqueDetails) return res.status(400).send({status:false,msg:"Email & Phone must be Unique"})
 
 let savedUser = await UserModel.create(data);
 return res.status(201).send({ status: true, data: savedUser });
