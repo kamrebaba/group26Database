@@ -9,6 +9,8 @@ router.get('/test-me', function (req, res) {
 
 
 router.post('/register',UserController.CreateUser)
+router.post('/login',UserController.LoginUser)
+
 
 
 
