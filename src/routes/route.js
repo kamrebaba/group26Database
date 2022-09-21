@@ -11,7 +11,7 @@ router.get('/test-me', function (req, res) {
 router.post('/register',UserController.CreateUser)
 router.post('/login',UserController.LoginUser)
 router.post('/books',BookController.createBook)
-
+router.get('/books/:bookId',BookController.getBookById)
 
 
 

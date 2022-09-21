@@ -26,7 +26,20 @@ let createBook= async function(req,res){
 
 
 
+const getBookById= async function(req, res){
+    try{
+         let bookId=req.params.bookId
+ if(!bookId) return res.status(400).send({status:false, msg: "BookId is required"})
 
+let getData = await bookModel.findById({_id:bookId, isDeleted:false})
+if (!getData) return res.status(404).send({status:false, msg: "Data not found"})
+
+ return res.status(200).send({status:true, msg:"Data found", data:getData})
+
+    }catch(error){
+        return res.status(500).send(error.message)
+    }
+}
 
 
 
@@ -40,3 +53,4 @@ let createBook= async function(req,res){
 
 
 module.exports.createBook= createBook
+module.exports.getBookById=getBookById
