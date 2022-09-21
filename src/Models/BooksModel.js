@@ -1,20 +1,21 @@
 const mongoose= require('mongoose')
+const moment= require('moment')
 const ObjectId= mongoose.Schema.Types.ObjectId
 
 const bookSchema= new mongoose.Schema({
     
-        title: {type:String, required:true, unique:true},
+        title: {type:String, required:true,unique:true},
         excerpt: {type:String, required:true}, 
-        userId: {Type:ObjectId , ref:'User'},
+        userId: {type:ObjectId , ref:'User'},
         ISBN: {type:String,required:true,unique:true},
         category: {type:String, required:true},
-        subcategory: {type:[String], required:true},
-        reviews: {type:Number, default: 0, comment:" Holds number of reviews of this book"},
+        subcategory: {type:String, required:true},
+        reviews: {type:Number, default: 0},
         deletedAt: {type:Date}, 
-        isDeleted: {type:boolean, default: false},
-        releasedAt: {type:Date, required:true},
+        isDeleted: {type:Boolean, default: false},
+        releasedAt: {type:Date,default:moment().format("YYYY-MM-DD")},
         
       
 },{timestamps:true}
 )
-model.excerpt= mongoose.model('Book',bookSchema)
+module.exports = mongoose.model('Book',bookSchema)
