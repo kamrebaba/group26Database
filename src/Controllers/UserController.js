@@ -1,30 +1,14 @@
 const UserModel = require("../Models/UserModel.js");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+const validation= require("../validation/validation")
 
-function validateName($name) {
-  var nameReg = /^[A-Za-z ]*$/;
-  if (!nameReg.test($name)) {
-    return false;
-  } else {
-    return true;
-  }
-}
 
-function validateMobile($mobile) {
-  var mobileReg = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
-  if (!mobileReg.test($mobile)) {
-    return false;
-  } else {
-    return true;
-  }
-}
-status: true;
-status: false;
 
 const CreateUser = async (req, res) => {
   try {
     let data = req.body;
+  
     if (Object.keys(data).length == 0)
       return res
         .status(400)
@@ -37,7 +21,7 @@ const CreateUser = async (req, res) => {
       return res.status(400).send({ status: false, msg: "phone is not valid" });
     if (!data.name)
       return res.status(400).send({ status: false, msg: "name is mandatory" });
-    if (!validateName(data.name))
+    if (!validation.name(data.name))
       return res.status(400).send({ status: false, msg: "name is not valid" });
     if (!data.email)
       return res.status(400).send({ status: false, msg: "email is mandatory" });
