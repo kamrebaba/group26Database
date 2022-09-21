@@ -12,7 +12,7 @@ router.post('/register',UserController.CreateUser)
 router.post('/login',UserController.LoginUser)
 router.post('/books',BookController.createBook)
 router.get('/books/:bookId',BookController.getBookById)
-
+router.get('/books',BookController.getBooks)
 
 
 
