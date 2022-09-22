@@ -58,6 +58,7 @@
 }
 ```
 
+
 ## User APIs 
 ### POST /register
 - Create a user - atleast 5 users

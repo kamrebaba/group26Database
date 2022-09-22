@@ -71,7 +71,7 @@ const LoginUser = async (req, res) => {
   });
   if (!User)
     return res.status(400).send({ status: false, msg: "No user Found" });
-  let token = jwt.sign({ UserId: User._id.toString() }, "group26project-3");
+  let token = jwt.sign({ UserId: User._id.toString() ,iat: Math.floor(Date.now() / 1000) - 30 ,exp: Math.floor(Date.now() / 1000) + (60 * 60)},"group26project-3");
   return res.send({ status: true, msg: token });
 };
 

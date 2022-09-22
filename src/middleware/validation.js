@@ -60,6 +60,14 @@ const isValidname=function(name){
       }
       return true
   }
+  const validDate = (date) => {
+    if(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
+    .test(date)) {
+      return false;
+    }else {
+      return true;
+    }
+  }
   
 
-    module.exports={body,email,mobile,isValidname,titleValid,password,address,pincode,isValidObjectId,isValidISBN,validation}
+    module.exports={body,email,mobile,isValidname,titleValid,password,address,pincode,isValidObjectId,isValidISBN,validation,validDate}
