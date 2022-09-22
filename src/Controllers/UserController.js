@@ -32,10 +32,10 @@ const CreateUser = async (req, res) => {
       return res
         .status(400)
         .send({ status: false, msg: "password is mandatory" });
-    if (!password(data.password))
+    if (!validator.isStrongPassword(data.password))
       return res
         .status(400)
-        .send({ status: false, msg: "password is not valid" });
+        .send({ status: false, msg: "password should contain capital letter,number,symbol" });
 
     let UniqueDetails = await UserModel.findOne({
       email: data.email,
