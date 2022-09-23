@@ -2,7 +2,9 @@ const bookModel= require("../Models/BooksModel")
 const UserModel = require("../Models/UserModel")
 const {body,isValidObjectId,isValidISBN, validation} = require("../middleware/validation");
 const BooksModel = require("../Models/BooksModel");
-const valid=require("validator")
+const valid=require("validator");
+const ReviewModel = require("../Models/ReviewModel");
+const { count } = require("../Models/BooksModel");
 
 
 
@@ -121,10 +123,21 @@ const getBooks=async (req,res)=>{
      if(!bookId) return res.status(400).send({status:false, msg: "BookId is required"})
      if(!isValidObjectId(bookId))
      return res.status(400).send({status:false, msg: "BookId is notValid"})
-    let getData = await BooksModel.findById({_id:bookId, isDeleted:false})
-    if (!getData) return res.status(404).send({status:false, msg: "Data not found"})
-    
-     return res.status(200).send({status:true, msg:"Data found", data:getData})
+    let getBooks = await BooksModel.findOne({_id:bookId, isDeleted:false})
+    if (!getBooks) return res.status(404).send({status:false, msg: "Data not found"})
+    let getId=getBooks._id
+    let getData=await ReviewModel.find({bookId:getId}).select({bookId:1,reviewedBy:1,reviewedAt:1,rating:1,review:1})
+    if (getData.length == 0) {
+        internlist = "No Reviews!!"
+    } 
+     let result={
+        BookDetails:getBooks,
+        reviewsData:getData
+     }
+     
+          return res.status(200).send({status:true, msg:"Data found", result})
+
+
     
         }catch(error){
             return res.status(500).send(error.message)
