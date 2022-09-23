@@ -18,8 +18,9 @@ router.get('/books/:bookId',Auth.authentication,BookController.getBookById)
 router.get('/books',Auth.authentication,BookController.getBooks)
 router.delete('/books/:bookId',Auth.authentication,Auth.authorisation,BookController.deleteBooks)
 router.put('/books/:bookId',BookController.UpdateBooks)
-router.post('/books/:bookId/review',ReviewController.Postreviews)
-
+router.post('/books/:bookId/review',ReviewController.createReviews)
+router.delete('/books/:bookId/review/:reviewId',ReviewController.deleteReviews)
+router.put('/books/:bookId/review/:reviewId',ReviewController.updateReviewData)
 
 
 
