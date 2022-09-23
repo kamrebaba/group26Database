@@ -121,7 +121,7 @@ const getBooks=async (req,res)=>{
      if(!bookId) return res.status(400).send({status:false, msg: "BookId is required"})
      if(!isValidObjectId(bookId))
      return res.status(400).send({status:false, msg: "BookId is notValid"})
-    let getData = await bookModel.findById({_id:bookId, isDeleted:false})
+    let getData = await BooksModel.findById({_id:bookId, isDeleted:false})
     if (!getData) return res.status(404).send({status:false, msg: "Data not found"})
     
      return res.status(200).send({status:true, msg:"Data found", data:getData})
