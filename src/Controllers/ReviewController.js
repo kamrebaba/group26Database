@@ -26,7 +26,7 @@ return res.status(400).send({status:false, msg: "BookId is not Valid"})
 
    data.bookId=bookId
 
- let reviewData=await reviewModel.create(data)
+ let reviewData=await ReviewModel.create(data)
   await BooksModel.updateOne({_id:bookId},{$inc:{reviews:1}})
   return res.status(201).send({status:true,msg:"Review Created successfully",data:reviewData})    
 
@@ -109,6 +109,7 @@ const deleteReviews= async function(req, res){
   
 }
 }
+
 
 module.exports.createReviews=createReviews
 module.exports.deleteReviews=deleteReviews
