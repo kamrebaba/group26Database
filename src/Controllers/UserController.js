@@ -2,7 +2,7 @@ const UserModel = require("../Models/UserModel.js");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const validation = require("../middleware/validation");
-const {isValidname,email,password,titleValid} = require("../middleware/validation");
+const {isValidname,email,titleValid} = require("../middleware/validation");
 
 
 const CreateUser = async (req, res) => {
@@ -49,7 +49,7 @@ const CreateUser = async (req, res) => {
     let savedUser = await UserModel.create(data);
     return res.status(201).send({ status: true,msg:"success", data: savedUser });
   } catch (error) {
-    return res.status(500).send(error.message);
+    return res.status(500).send({status:false,msg:error.message});
   }
 };
 

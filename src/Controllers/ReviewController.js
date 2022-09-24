@@ -71,7 +71,7 @@ return res.status(200).send({status:true, msg: "Review updated Successfully", da
 
 }
  catch (error) {
-  return res.status(500).send({msg:error.message})
+    return res.status(500).send({status:false,msg:error.message})
   
 }
 }
@@ -105,7 +105,7 @@ const deleteReviews= async function(req, res){
   return res.status(200).send({status:true, msg: "review Deleted Successfully"})
 
 } catch (error) {
-  return res.status(500).send({msg:error.message})
+    return res.status(500).send({status:false,msg:error.message})
   
 }
 }
