@@ -47,13 +47,14 @@ const CreateUser = async (req, res) => {
         .send({ status: false, msg: "Email & Phone must be Unique" });
 
     let savedUser = await UserModel.create(data);
-    return res.status(201).send({ status: true, data: savedUser });
+    return res.status(201).send({ status: true,msg:"success", data: savedUser });
   } catch (error) {
     return res.status(500).send(error.message);
   }
 };
 
 const LoginUser = async (req, res) => {
+ try {
   let data = req.body;
   if (Object.keys(data).length == 0)
     return res.status(400).send("Input is Missing");
@@ -72,10 +73,13 @@ const LoginUser = async (req, res) => {
   if (!User)
     return res.status(400).send({ status: false, msg: "No user Found" });
   let token = jwt.sign({ UserId: User._id.toString() ,iat: Math.floor(Date.now() / 1000) - 30 ,exp: Math.floor(Date.now() / 1000) + (60 * 60)},"group26project-3");
-  return res.send({ status: true, msg: token });
-};
+  return res.send({ status: true,msg:"success", data: token });
+
+ } catch (error) {
+  return res.status(500).send({status:false,msg:error.message})
+ }
 
 
-
+}
 module.exports.CreateUser = CreateUser;
-module.exports.LoginUser = LoginUser;
+module.exports.LoginUser = LoginUser
