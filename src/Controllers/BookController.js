@@ -98,8 +98,10 @@ const getBooks=async (req,res)=>{
      if(!bookId) return res.status(400).send({status:false, msg: "BookId is required"})
      if(!isValidObjectId(bookId))
      return res.status(400).send({status:false, msg: "BookId is notValid"})
+
     let getBooks = await BooksModel.findOne({_id:bookId, isDeleted:false})
     if (!getBooks) return res.status(404).send({status:false, msg: "Data not found"})
+
     let getId=getBooks._id
     let getData=await ReviewModel.find({bookId:getId}).select({bookId:1,reviewedBy:1,reviewedAt:1,rating:1,review:1})
     if (getData.length == 0) {
@@ -111,10 +113,7 @@ const getBooks=async (req,res)=>{
      }
      
           return res.status(200).send({status:true, msg:"Data found", result})
-
-
-    
-        }catch(error){
+}catch(error){
             return res.status(500).send({status:false,msg:error.message})
         }
     }

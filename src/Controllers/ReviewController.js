@@ -1,6 +1,4 @@
-const bookModel= require("../Models/BooksModel")
-const {body,isValidObjectId,isValidISBN, validation,isValidname} = require("../middleware/validation");
-const reviewModel= require("../Models/ReviewModel");
+const {body,isValidObjectId, isValidname} = require("../middleware/validation");
 const BooksModel = require("../Models/BooksModel");
 const validator=require('validator');
 const ReviewModel = require("../Models/ReviewModel");
@@ -12,7 +10,7 @@ try {
     let bookId = req.params.bookId
   if(!bookId) return res.status(400).send({status:false,msg:"Book id should be in params"})
   if(!isValidObjectId(bookId))
-return res.status(400).send({status:false, msg: "BookId is not Valid"})
+  return res.status(400).send({status:false, msg: "BookId is not Valid"})
   let CheckBook= await BooksModel.findById(bookId)
   if(CheckBook.isDeleted==true) return res.status(404).send({status:false,msg:"no book found"})
 
