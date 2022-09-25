@@ -132,9 +132,6 @@ if(!body(data)) return res.status(400).send({status:false,msg:"Input is Missing"
 let UniqueTitle =await BooksModel.findOne({title:data.title})
 if(UniqueTitle) return res.status(400).send({status:false,msg:"title  Must me Unique"})
 
-if(!(data.releasedAt))  return res.status(400).send({status:false,msg:"ReleaseDate is mandatory"})
-
-
 if(!isValidISBN(data.ISBN)) return res.status(400).send({status:false,msg:"ISBN should be of 13 digits"})
 let UniqueISBN =await BooksModel.findOne({ISBN:data.ISBN})
 
